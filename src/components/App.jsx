@@ -57,8 +57,9 @@ export class App extends Component {
     e.currentTarget.reset();
   }
   onLoadPades = () => {
+    console.log('функція працює');
     this.setState(prevState => ({
-      page: prevState.page += 1,
+      page: console.log(prevState.page += 1),
       visible: true,
     }))
   }
