@@ -18,3 +18,5 @@ ImageGallery.propTypes = {
         largeImageURL: PropTypes.string.isRequired,
     }))
 }
+
+

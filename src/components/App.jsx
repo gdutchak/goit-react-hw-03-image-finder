@@ -3,14 +3,14 @@ import { Component } from "react";
 import { SearchBar } from "./SearchBar/SearchBar";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { Button } from "./Button/Button";
-// import { Modal } from "./Modal/Modal";
+import { Modal } from "./Modal/Modal";
 import { ColorRing } from "react-loader-spinner";
 import { AppEl } from "./App.styled";
 import { Notify } from 'notiflix';
 
 const API_KEY = '29165116-db33726688e81f885d73ac474';
 const imagePerPage = 12;
-// let urlIm = '';
+let urlIm = '';
 
 export class App extends Component {
   state = {
@@ -53,7 +53,7 @@ export class App extends Component {
   }
   onLoadPades = () => {
     this.setState(prevState => ({
-      page: prevState.page += 1,
+      page: prevState.page + 1,
       visible: true,
     }))
   }
@@ -61,7 +61,6 @@ export class App extends Component {
     if (e.target === e.currentTarget || e.code === 'Escape') {
       this.setState({
         modal: false,
-
       })
 
       window.removeEventListener('click', this.closeModalWindow)
@@ -76,12 +75,12 @@ export class App extends Component {
     this.setState({
       modal: true
     })
-    // return urlIm = url
+    return urlIm = url
   }
 
 
   render() {
-    const { collection, visible, button } = this.state;
+    const { collection, visible, modal, button } = this.state;
     return (
       <AppEl>
         <SearchBar onSubmit={this.onSubmit}></SearchBar>
@@ -94,8 +93,8 @@ export class App extends Component {
           wrapperClass="blocks-wrapper"
           colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
         />}
-        {/* {modal && <Modal data={urlIm} closeModal={this.closeModalWindow}></Modal>} */}
         {button && <Button nextPage={this.onLoadPades}></Button>}
+        {modal && <Modal data={urlIm} closeModal={this.closeModalWindow}></Modal>}
       </AppEl>
     )
   }
