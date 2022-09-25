@@ -26,12 +26,12 @@ export class App extends Component {
 
   async componentDidUpdate(_, prevState) {
     const { name, page } = this.state;
-
+    console.log('запит іде');
     if (prevState.name !== name || prevState.page !== page) {
       this.setState({ visible: true })
       data = await fetchImage(name, page, API_KEY)
       allResult = data.totalHits;
-
+      console.log('запит прийшов');
       if (allResult === 0) {
         Notify.failure('Oooops, nothing found :(');
       }
