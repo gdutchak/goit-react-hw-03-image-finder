@@ -66,6 +66,7 @@ export class App extends Component {
     if (e.target === e.currentTarget || e.code === 'Escape') {
       this.setState({
         modal: false,
+
       })
 
       window.removeEventListener('click', this.closeModalWindow)
