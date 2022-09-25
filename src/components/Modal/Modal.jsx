@@ -4,7 +4,7 @@ import { Overlay, ModalEl } from "./Modal.styled"
 export const Modal = ({ data, closeModal }) => (
     <Overlay onClick={closeModal}>
         <ModalEl>
-            <img src={data} alt="image" />
+            <img src={data} alt="imageModal" />
         </ModalEl>
     </Overlay>
 )
