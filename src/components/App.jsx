@@ -9,9 +9,7 @@ import { AppEl } from "./App.styled";
 import { Notify } from 'notiflix';
 
 const API_KEY = '29165116-db33726688e81f885d73ac474';
-let data = '';
 const imagePerPage = 12;
-let allResult = 0;
 let urlIm = '';
 
 export class App extends Component {
@@ -27,20 +25,18 @@ export class App extends Component {
   async componentDidUpdate(_, prevState) {
     if (prevState.name !== this.state.name || prevState.page !== this.state.page) {
       this.setState({ visible: true })
-      data = await fetchImage(this.state.name, this.state.page, API_KEY)
-      allResult = data.totalHits;
-
-      if (allResult === 0) {
-        Notify.failure('Oooops, nothing found :(');
-      }
+      const data = await fetchImage(this.state.name, this.state.page, API_KEY);
 
       this.setState(prevState => ({
         collection: [...prevState.collection, ...data.hits],
-        button: allResult / imagePerPage >= this.state.page ? true : false,
+        button: data.totalHits / imagePerPage >= this.state.page ? true : false,
         visible: false,
       }))
-    }
 
+      if (data.totalHits === 0) {
+        Notify.failure('Oooops, nothing found :(');
+      }
+    }
   }
 
   onSubmit = (e) => {
@@ -98,7 +94,7 @@ export class App extends Component {
           wrapperClass="blocks-wrapper"
           colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
         />}
-        {modal && <Modal data={urlIm} closeModal={this.closeModalWindow}></Modal>}
+        {/* {modal && <Modal data={urlIm} closeModal={this.closeModalWindow}></Modal>} */}
         {button && <Button nextPage={this.onLoadPades}></Button>}
       </AppEl>
     )
