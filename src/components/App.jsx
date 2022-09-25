@@ -59,7 +59,7 @@ export class App extends Component {
   onLoadPades = () => {
     console.log('функція працює');
     this.setState(prevState => ({
-      page: console.log(prevState.page += 1),
+      page: prevState.page += 1,
       visible: true,
     }))
   }
