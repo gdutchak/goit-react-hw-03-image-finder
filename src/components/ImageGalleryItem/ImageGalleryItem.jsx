@@ -3,9 +3,7 @@ import { ImageGalImg, ImageGalItem } from "./ImageGalleryItem.styled"
 
 export const ImageGalleryItem = ({ smImg, lgImg, modal }) => (
     <ImageGalItem>
-        <a href='#' onClick={() => modal(lgImg)}>
-            <ImageGalImg src={smImg} alt="image" />
-        </a>
+        <ImageGalImg src={smImg} alt="image" onClick={() => modal(lgImg)} />
     </ImageGalItem>
 )
 
