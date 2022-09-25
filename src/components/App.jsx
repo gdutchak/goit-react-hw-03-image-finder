@@ -25,23 +25,22 @@ export class App extends Component {
   }
 
   async componentDidUpdate(_, prevState) {
-    const { name, page } = this.state;
-    console.log('запит іде');
-    if (prevState.name !== name || prevState.page !== page) {
+    if (prevState.name !== this.state.name || prevState.page !== this.state.page) {
       this.setState({ visible: true })
-      data = await fetchImage(name, page, API_KEY)
+      data = await fetchImage(this.state.name, this.state.page, API_KEY)
       allResult = data.totalHits;
-      console.log('запит прийшов');
+
       if (allResult === 0) {
         Notify.failure('Oooops, nothing found :(');
       }
 
       this.setState(prevState => ({
         collection: [...prevState.collection, ...data.hits],
-        button: allResult / imagePerPage >= page ? true : false,
+        button: allResult / imagePerPage >= this.state.page ? true : false,
         visible: false,
       }))
     }
+
   }
 
   onSubmit = (e) => {
@@ -57,7 +56,6 @@ export class App extends Component {
     e.currentTarget.reset();
   }
   onLoadPades = () => {
-    console.log('функція працює');
     this.setState(prevState => ({
       page: prevState.page += 1,
       visible: true,
