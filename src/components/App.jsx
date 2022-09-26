@@ -1,4 +1,4 @@
-import { fetchImage } from "./utils/fetchImage";
+import { fetchImage } from "../utils/fetchImage";
 import { Component } from "react";
 import { SearchBar } from "./SearchBar/SearchBar";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
