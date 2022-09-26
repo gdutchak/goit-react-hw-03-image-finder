@@ -27,15 +27,17 @@ export class App extends Component {
       this.setState({ visible: true })
       const data = await fetchImage(this.state.name, this.state.page, API_KEY);
 
+      if (data.hits.length === 0) {
+        Notify.failure('Oooops, nothing found :(');
+      }
+
       this.setState(prevState => ({
         collection: [...prevState.collection, ...data.hits],
         button: data.totalHits / imagePerPage >= this.state.page ? true : false,
         visible: false,
       }))
 
-      if (data.totalHits === 0) {
-        Notify.failure('Oooops, nothing found :(');
-      }
+
     }
   }
 
@@ -43,13 +45,16 @@ export class App extends Component {
     e.preventDefault();
     let valueInput = e.currentTarget.elements[1].value;
 
-    this.setState({
-      name: valueInput,
-      collection: [],
-      page: 1,
-    })
+    if (this.state.name !== valueInput) {
+      this.setState({
+        name: valueInput,
+        collection: [],
+        page: 1,
+      })
+    } else {
+      Notify.failure("This query is the same.")
+    }
 
-    e.currentTarget.reset();
   }
   onLoadPades = () => {
     this.setState(prevState => ({
@@ -57,6 +62,8 @@ export class App extends Component {
       visible: true,
     }))
   }
+
+
   closeModalWindow = (e) => {
     if (e.target === e.currentTarget || e.code === 'Escape') {
       this.setState({
